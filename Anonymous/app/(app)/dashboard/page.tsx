@@ -95,7 +95,7 @@ const page = () => {
         }
      }
 
-     const username = session?.user?.username ?? ''
+     const username = session?.user?.name ?? ''
      const baseurl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : ''
      const profileurl = username ? `${baseurl}/u-anonymous/${username}` : `${baseurl}/u-annonymous/`
      const copytoclipboard = () => {

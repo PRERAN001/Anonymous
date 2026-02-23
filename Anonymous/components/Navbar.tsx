@@ -26,7 +26,7 @@ const Navbar = () => {
         {session?.user ? (
           <div className="flex items-center gap-6">
             <span className="text-sm text-black font-medium">
-              {user?.username ?? "User"}
+              {user?.name ?? "User"}
             </span>
 
             <button
