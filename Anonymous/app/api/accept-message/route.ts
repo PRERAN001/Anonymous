@@ -3,7 +3,8 @@ import { dbconnect } from "@/app/lib/dbConnection";
 import usermodel from "@/app/model/User";
 import { authoptions } from "../auth/[...nextauth]/option";
 import { User } from "next-auth";
-export async function POST(request:Request){
+import { NextRequest } from "next/server";
+export async function POST(request:NextRequest){
     try
     {
         const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
@@ -58,9 +59,9 @@ export async function POST(request:Request){
 }
 
         
-export async function GET(request:Request){
+export async function GET(request:NextRequest){
     try {
-        const session=await getSession({req:request,options:authoptions})
+        const session=await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
         const userr:User=session?.user as User
         if(!userr){
             return Response.json({
