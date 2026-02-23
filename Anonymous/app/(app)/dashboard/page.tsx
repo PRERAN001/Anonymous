@@ -29,6 +29,7 @@ const page = () => {
 
     
     const {data:session}=useSession()
+    console.log("sessionnn",session)
     
     const form=useForm(
         {
