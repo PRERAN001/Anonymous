@@ -14,82 +14,73 @@ export const authoptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
 
-      async authorize(credentials) {
-        try {
-          await dbconnect();
+      async authorize(
+        credentials: { email: string; password: string } | undefined,
+        req?: any,
+      ): Promise<any> {
+        await dbconnect();
 
-          if (!credentials?.email || !credentials?.password) {
-            throw new Error("Email and password are required");
-          }
-
-          const userfind = await usermodel.findOne({
-            email: credentials.email,
-          });
-          console.log("userfind", userfind);
-
-          if (!userfind) {
-            throw new Error("Invalid credentials");
-          }
-
-          if (!userfind.isverified) {
-            throw new Error("Please verify your email before logging in");
-          }
-
-          const passwordcheck = await bcrypt.compare(
-            credentials.password,
-            userfind.password
-          );
-
-          if (!passwordcheck) {
-            throw new Error("Invalid credentials");
-          }
-
-          // Return a plain user object (not a Mongoose document) to satisfy NextAuth's User shape
-          return {
-            id: userfind._id?.toString(),
-            _id: userfind._id?.toString(),
-            email: userfind.email,
-            username: userfind.username,
-            isverified: userfind.isverified,
-            messages:userfind.messages,
-            isacceptingmessage: userfind.isacceptingmessage,
-
-          };
-        } catch (error) {
-          if (error instanceof Error) {
-            throw error;
-          }
-          throw new Error("Something went wrong");
+        if (!credentials?.email || !credentials?.password) {
+          return null;
         }
+
+        const userfind = await usermodel.findOne({
+          email: credentials.email,
+        });
+
+        if (!userfind) {
+          return null;
+        }
+
+        if (!userfind.isverified) {
+          throw new Error("Please verify your email before logging in");
+        }
+
+        const passwordcheck = await bcrypt.compare(
+          credentials.password,
+          userfind.password,
+        );
+
+        if (!passwordcheck) {
+          return null;
+        }
+
+        return {
+          id: userfind._id.toString(),
+          email: userfind.email,
+          name: userfind.username,
+        } as any;
       },
     }),
-    
   ],
-  pages:{
-    signIn:"/sign-in"
+  pages: {
+    signIn: "/sign-in",
   },
-  callbacks:{
+  callbacks: {
     async session({ session, token }) {
       if (session.user) {
-        
         session.user.id = token.id as string | undefined;
         session.user._id = token._id as string | undefined;
-        session.user.isacceptingmessage = token.isacceptingmessage as boolean | undefined;
+        session.user.isacceptingmessage = token.isacceptingmessage as
+          | boolean
+          | undefined;
         session.user.isverified = token.isverified as boolean | undefined;
-        session.user.acceptmessage = token.acceptmessage as string | null | undefined;
+        session.user.acceptmessage = token.acceptmessage as
+          | string
+          | null
+          | undefined;
         session.user.username = token.username as string | undefined;
       }
-      return session
+      return session;
     },
-    async jwt({ token, user}) {
+    async jwt({ token, user }) {
       if (user) {
-        
         const u = user as unknown as {
           _id?: { toString(): string } | string;
           id?: string;
           username?: string;
           isacceptingmessage?: boolean;
-          acceptmessage:string;
+          acceptmessage: string;
           isverified?: boolean;
         };
 
@@ -101,12 +92,11 @@ export const authoptions: NextAuthOptions = {
         token.username = u.username;
         token.acceptmessage = u.acceptmessage;
       }
-      return token
-    }
+      return token;
+    },
   },
-  session:{
-    strategy:"jwt"
-  }, 
-  secret:process.env.NEXTAUTH_SECRET
-  
+  session: {
+    strategy: "jwt",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
 };
