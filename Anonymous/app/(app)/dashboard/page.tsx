@@ -216,9 +216,9 @@ const page = () => {
         </div>
       ) : (
         <div className="grid md:grid-cols-2 gap-10">
-          {messages.map((msg) => (
+          {messages.map((msg,i) => (
             <Card
-              key={msg._id}
+              key={i}
               className="group relative border border-black/10 bg-white hover:border-black hover:shadow-2xl transition-all duration-300 rounded-2xl"
             >
               <CardContent className="p-8 space-y-6">
