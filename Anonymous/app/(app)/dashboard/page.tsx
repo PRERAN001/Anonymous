@@ -27,9 +27,7 @@ const page = () => {
     const [loading,setloading]=useState(false)
     const [iswitchloading,setisswitchloading]=useState(false)
 
-    const handeldeletemsg=(messageid:string)=>{
-        setmessages(prev=>prev.filter(msg=>msg._id!==messageid))
-    }
+    
     const {data:session}=useSession()
     
     const form=useForm(
@@ -233,14 +231,7 @@ const page = () => {
                   {new Date(msg.createdat).toLocaleString()}
                 </p>
 
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition border border-black/10 hover:bg-black hover:text-white"
-                  onClick={() => handeldeletemsg(msg._id)}
-                >
-                  ✕
-                </Button>
+                
 
               </CardContent>
             </Card>
