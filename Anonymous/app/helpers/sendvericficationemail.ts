@@ -1,4 +1,4 @@
-import { resend } from "../lib/resend";
+import ezymail from "ezymail"
 import { VerificationEmail } from "../email/VerificationEmail";
 
 import { Apiresonse } from "@/app/types/Apiresponse";
@@ -12,16 +12,15 @@ export async function sendverificatioemail(
     try {
         console.log("send verification emailll",username,email,verifycode)
 
-    const { data, error } = await resend.emails.send({
-      from: 'Acme <onboarding@resend.dev>',
+    ezymail.send({
+      from: 'preran248@gmail.com',
       to: email,
       subject: 'Anonoymous ',
-      html: VerificationEmail(username, verifycode),
+      body: `hey ${username} here is your verification code ${verifycode}`,
+      
     });
 
-    console.log("dataaa",data
-        ,"errorrrrrrr",error
-    )
+    
     return {success:true,message:"verification email sent successfully"}
         
     } catch (error) {
