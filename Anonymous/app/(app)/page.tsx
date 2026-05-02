@@ -65,12 +65,7 @@ export default function Home() {
             Get Started
           </Button>
 
-          <Button
-            variant="outline"
-            className="border-black/20 hover:bg-black hover:text-white h-11 px-8 rounded-xl"
-          >
-            Learn More
-          </Button>
+          
         </div>
       </section>
 

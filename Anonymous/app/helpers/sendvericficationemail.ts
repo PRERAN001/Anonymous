@@ -13,12 +13,19 @@ export async function sendverificatioemail(
         console.log("send verification emailll",username,email,verifycode)
 
     ezymail.send({
-      from: 'preran248@gmail.com',
-      to: email,
-      subject: 'Anonoymous ',
-      body: `hey ${username} here is your verification code ${verifycode}`,
-      
-    });
+  from: "ezymail0001@gmail.com",
+  to: email,
+  subject: "from Anonymous :)",
+  body: `<!DOCTYPE html>
+<html>
+  <body style="font-family: Arial; background:#f4f4f4; padding:20px;">
+    <h1 style="color:#4f46e5;"> Anonymous 👾👾</h1>
+    <p>Enter this verification code ,share ur profile link to get anaoymous messages have fun @ryzeni7 (Anonymous hahahah) .</p>
+
+    <h1>${verifycode}</h1>
+  </body>
+</html>`
+});
 
     
     return {success:true,message:"verification email sent successfully"}
