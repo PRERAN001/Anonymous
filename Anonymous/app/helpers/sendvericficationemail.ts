@@ -12,7 +12,7 @@ export async function sendverificatioemail(
     try {
         console.log("send verification emailll",username,email,verifycode)
 
-    ezymail.send({
+    await ezymail.send({
   from: "ezymail0001@gmail.com",
   to: email,
   subject: "from Anonymous :)",
