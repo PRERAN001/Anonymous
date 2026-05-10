@@ -4,7 +4,7 @@ declare module "ezymail" {
       from: string;
       to: string;
       subject: string;
-      body: string;
+      html: string;
     }) => any;
   };
 

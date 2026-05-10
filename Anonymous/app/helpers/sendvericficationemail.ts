@@ -16,7 +16,7 @@ export async function sendverificatioemail(
   from: "ezymail0001@gmail.com",
   to: email,
   subject: "from Anonymous :)",
-  body: `<!DOCTYPE html>
+  html: `<!DOCTYPE html>
 <html>
   <body style="font-family: Arial; background:#f4f4f4; padding:20px;">
     <h1 style="color:#4f46e5;"> Anonymous 👾👾</h1>
