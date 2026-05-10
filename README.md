@@ -1,6 +1,6 @@
 # Anonymous — Anonymous Messaging Platform
 
-> Live Demo: https://anonymous-henna.vercel.app
+> Live Demo: https://anonymous-henna.vercel.app/
 
 
 
